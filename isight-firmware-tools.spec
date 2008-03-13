@@ -7,8 +7,6 @@ License:	GPLv2+
 Group:		Applications
 Source0:	http://bersace03.free.fr/ift/%{name}-%{version}.tar.gz
 # Source0-md5:	b8d1e80cf8d47f9aa4f683b995cd359c
-Patch0:		%{name}-Makefile.patch
-Patch1:		%{name}-udev_rules.patch
 URL:		http://bersace03.free.fr/ift/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -23,8 +21,7 @@ found on Apple machine since iMac G5 iSight.
 
 %prep
 %setup -q
-%patch0 -p0
-%patch1 -p0
+%{__sed} -i -e 's#@udevdir@#/%{_lib}/udev#g' isight.rules.in
 
 %build
 %{__aclocal}
@@ -37,7 +34,8 @@ found on Apple machine since iMac G5 iSight.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	libudevdir=/%{_lib}/udev
 
 #%find_lang %{name}
 
@@ -60,7 +58,7 @@ fi
 %defattr(644,root,root,755)
 %doc README HOWTO AUTHORS ABOUT-NLS
 %attr(755,root,root) %{_bindir}/ift-*
-%attr(755,root,root) /lib/udev/ift-load
+%attr(755,root,root) /%{_lib}/udev/ift-load
 /etc/udev/rules.d/isight.rules
 %{_infodir}/ift-export.info.gz
 %{_infodir}/ift-extract.info.gz
