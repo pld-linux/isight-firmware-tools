@@ -8,6 +8,7 @@ Group:		Applications
 Source0:	http://bersace03.free.fr/ift/%{name}-%{version}.tar.gz
 # Source0-md5:	b8d1e80cf8d47f9aa4f683b995cd359c
 Patch0:		%{name}-Makefile.patch
+Patch1:		%{name}-udev_rules.patch
 URL:		http://bersace03.free.fr/ift/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -23,6 +24,7 @@ found on Apple machine since iMac G5 iSight.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p0
 
 %build
 %{__aclocal}
