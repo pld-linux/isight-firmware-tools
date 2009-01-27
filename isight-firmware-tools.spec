@@ -2,7 +2,7 @@
 Summary:	iSight Firmware Tools
 Name:		isight-firmware-tools
 Version:	1.0.2
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Applications
 Source0:	http://bersace03.free.fr/ift/%{name}-%{version}.tar.gz
