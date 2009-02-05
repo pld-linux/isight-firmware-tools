@@ -2,7 +2,7 @@
 Summary:	iSight Firmware Tools
 Name:		isight-firmware-tools
 Version:	1.0.2
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		Applications
 Source0:	http://bersace03.free.fr/ift/%{name}-%{version}.tar.gz
@@ -12,6 +12,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libgcrypt-devel
 BuildRequires:	rpmbuild(macros) >= 1.228
+Requires:	udev-core >= 1:127
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -20,7 +21,7 @@ found on Apple machine since iMac G5 iSight.
 
 %prep
 %setup -q
-%{__sed} -i -e 's#@udevdir@#/%{_lib}/udev#g' isight.rules.in
+%{__sed} -i -e 's#@udevdir@#/lib/udev#g' isight.rules.in
 
 %build
 %{__aclocal}
@@ -34,7 +35,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	libudevdir=/%{_lib}/udev
+	libudevdir=/lib/udev
 
 #%find_lang %{name}
 
@@ -57,7 +58,7 @@ fi
 %defattr(644,root,root,755)
 %doc README HOWTO AUTHORS ABOUT-NLS
 %attr(755,root,root) %{_bindir}/ift-*
-%attr(755,root,root) /%{_lib}/udev/ift-load
+%attr(755,root,root) /lib/udev/ift-load
 /etc/udev/rules.d/isight.rules
 %{_infodir}/ift-export.info.gz
 %{_infodir}/ift-extract.info.gz
