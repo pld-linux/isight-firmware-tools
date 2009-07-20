@@ -1,12 +1,12 @@
 #
 Summary:	iSight Firmware Tools
 Name:		isight-firmware-tools
-Version:	1.0.2
-Release:	6
+Version:	1.4.2
+Release:	1
 License:	GPLv2+
 Group:		Applications
-Source0:	http://bersace03.free.fr/ift/%{name}-%{version}.tar.gz
-# Source0-md5:	b8d1e80cf8d47f9aa4f683b995cd359c
+Source0:	http://launchpad.net/isight-firmware-tools/main/1.4/+download/%{name}-%{version}.tar.gz
+# Source0-md5:	9bb964677e722a93dd57e268366556b1
 URL:		http://bersace03.free.fr/ift/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -25,7 +25,7 @@ found on Apple machine since iMac G5 iSight.
 
 %prep
 %setup -q
-%{__sed} -i -e 's#@udevdir@#/lib/udev#g' isight.rules.in
+%{__sed} -i -e 's#@udevdir@#/lib/udev#g' src/isight.rules.in.in
 
 %build
 %{__aclocal}
