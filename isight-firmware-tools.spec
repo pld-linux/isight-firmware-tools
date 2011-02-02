@@ -64,7 +64,7 @@ fi
 %attr(755,root,root) %{_bindir}/ift-*
 %attr(755,root,root) /lib/udev/ift-load
 /etc/udev/rules.d/isight.rules
-%{_infodir}/ift-export.info.gz
-%{_infodir}/ift-extract.info.gz
+%{_infodir}/ift-export.info*
+%{_infodir}/ift-extract.info*
 %{_mandir}/man1/ift-export.1*
 %{_mandir}/man1/ift-extract.1*
