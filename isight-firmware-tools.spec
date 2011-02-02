@@ -3,14 +3,20 @@ Summary:	iSight Firmware Tools
 Name:		isight-firmware-tools
 Version:	1.4.2
 Release:	1
-License:	GPLv2+
+License:	GPL v2+
 Group:		Applications
 Source0:	http://launchpad.net/isight-firmware-tools/main/1.4/+download/%{name}-%{version}.tar.gz
 # Source0-md5:	9bb964677e722a93dd57e268366556b1
 URL:		http://bersace03.free.fr/ift/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gettext-devel
+BuildRequires:	glib2-devel
+BuildRequires:	hal-devel
+BuildRequires:	intltool
 BuildRequires:	libgcrypt-devel
+BuildRequires:	libusb-compat-devel
+BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.228
 %if "%{pld_release}" == "ti"
 Requires:	udev-core >= 1:124-3
