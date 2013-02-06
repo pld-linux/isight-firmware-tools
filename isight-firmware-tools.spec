@@ -1,12 +1,14 @@
-#
+# TODO
+# - .spec for buidling -fw package
 Summary:	iSight Firmware Tools
 Name:		isight-firmware-tools
-Version:	1.4.2
+Version:	1.6
 Release:	1
 License:	GPL v2+
 Group:		Applications
-Source0:	http://launchpad.net/isight-firmware-tools/main/1.4/+download/%{name}-%{version}.tar.gz
-# Source0-md5:	9bb964677e722a93dd57e268366556b1
+Source0:	https://launchpad.net/isight-firmware-tools/main/1.6/+download/%{name}-%{version}.tar.gz
+# Source0-md5:	d2823c083dc0ef8a589ba3f84b8e9167
+Patch0:		format-security.patch
 URL:		http://bersace03.free.fr/ift/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -26,12 +28,13 @@ Requires:	udev-core >= 1:127
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-This project provide tools to manipulate firmware for Built-in iSight
-found on Apple machine since iMac G5 iSight.
+A set of tool for firmware extraction from Mac OS X driver and loading
+for use with udev. Use linux-uvc driver to access the isight. Support
+all built-in iSight starting with iMac G5 iSight.
 
 %prep
 %setup -q
-%{__sed} -i -e 's#@udevdir@#/lib/udev#g' src/isight.rules.in.in
+%patch0 -p1
 
 %build
 %{__aclocal}
@@ -42,12 +45,18 @@ found on Apple machine since iMac G5 iSight.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	libudevdir=/lib/udev
+	libudevdir=/lib/udev \
+	rulesdir=/lib/udev/rules.d \
+	doc_DATA= \
+	DESTDIR=$RPM_BUILD_ROOT
 
-#%find_lang %{name}
+%{__rm} -f $RPM_BUILD_ROOT%{_infodir}/dir
+
+# empty file
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/ift-extract.1
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -63,14 +72,14 @@ It is usually the file /System/Library/Extensions/IOUSBFamily.kext/Contents/Plug
 EOF
 fi
 
-#%files -f %{name}.lang
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README HOWTO AUTHORS ABOUT-NLS
-%attr(755,root,root) %{_bindir}/ift-*
+%doc README HOWTO AUTHORS
+%attr(755,root,root) %{_bindir}/ift-export
+%attr(755,root,root) %{_bindir}/ift-extract
 %attr(755,root,root) /lib/udev/ift-load
-/etc/udev/rules.d/isight.rules
+/lib/udev/rules.d/isight.rules
+%{_mandir}/man1/ift-export.1*
+#%{_mandir}/man1/ift-extract.1*
 %{_infodir}/ift-export.info*
 %{_infodir}/ift-extract.info*
-%{_mandir}/man1/ift-export.1*
-%{_mandir}/man1/ift-extract.1*
