@@ -36,6 +36,9 @@ all built-in iSight starting with iMac G5 iSight.
 %setup -q
 %patch0 -p1
 
+%{__sed} -i -e 's,${libdir}/udev,/lib/udev,' configure.ac
+%{__sed} -i -e 's,${sysconfdir}/udev/rules.d,/lib/udev/rules.d,' src/Makefile.am
+
 %build
 %{__aclocal}
 %{__autoconf}
@@ -46,8 +49,6 @@ all built-in iSight starting with iMac G5 iSight.
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install \
-	libudevdir=/lib/udev \
-	rulesdir=/lib/udev/rules.d \
 	doc_DATA= \
 	DESTDIR=$RPM_BUILD_ROOT
 
