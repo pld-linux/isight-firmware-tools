@@ -12,7 +12,7 @@ Patch0:		format-security.patch
 URL:		http://bersace03.free.fr/ift/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel
 BuildRequires:	hal-devel
 BuildRequires:	intltool
