@@ -34,7 +34,7 @@ all built-in iSight starting with iMac G5 iSight.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %{__sed} -i -e 's,${libdir}/udev,/lib/udev,' configure.ac
 %{__sed} -i -e 's,${sysconfdir}/udev/rules.d,/lib/udev/rules.d,' src/Makefile.am
